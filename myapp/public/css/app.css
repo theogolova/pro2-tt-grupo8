@@ -1,19 +1,55 @@
 /*====== Fonts ======*/
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
+<link href= "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
+.comentarios {
+  padding: 30px 15px 15px 0;
+
+}
+.comentarios article{
+  margin-bottom: 7.5px;
+  padding-bottom: 7.5px;
+  margin-top: 20px;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  justify-content: space-between;
+}
+.comentarios img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.comentarios .info{
+  width: 85%;
+  
+}
+.comentarios p{
+  font-size: 1.5em;
+  margin-top: 0;
+}
+.comentarios .usuario{
+  font-size: 1.7em;
+}
 
 /*====== Variables ======*/
 :root {
   --yellow: #EAC926;
   --dark-blue: #03264C;
   --light-blue: #1259c3;
-  --gray: #666666;
-  --light-gray: #ebebeb;
+  --gray: rgb(152, 133, 133);
+  --light-gray: #666666;
   --green: #39b54a;
-  --base-font-family: 'Roboto', sans-serif
+  --base-font-family: 'Roboto', sans-serif;
 }
 
+body{
+  background: linear-gradient(to bottom, #000000, #dee5ec); ;
+}
 
+.products-title,
+.product-detail-title,
+.main-title {
+  font-family: 'Montserrat', sans-serif;
+}
 /*====== Basics ======*/
 * {
   box-sizing: border-box;
@@ -24,13 +60,14 @@ body {
   min-height: 100vh;
   margin: 0;
   font-size: 10px;
+  
 }
 
 body {
-  font-family: var(--base-font-family);
-  font-weight: 300;
-  background-color: var(--light-gray);
+  font-family: 'Open Sans', sans-serif;
+  
 }
+
 
 ul,
 ol {
@@ -40,9 +77,9 @@ ol {
 }
 
 a {
-  display: inline-block;
-  text-decoration: none;
-  color: inherit;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  color: rgb(0, 0, 0); 
 }
 
 figure {
@@ -68,9 +105,12 @@ hr {
 /*====== Main Header ======*/
 .main-header {
   padding: 15px 0;
-  background-color: var(--yellow);
+  background-color: gray;
 }
 
+.logo{
+ margin-top: 19px;
+}
 .main-header_home-link,
 .main-header_credit-link {
   display: block;
@@ -161,6 +201,10 @@ hr {
   height: 100px;
 }
 
+.imagen_banner{
+  height: 350px;
+}
+
 
 /*====== Products ======*/
 .products-wrapper {
@@ -171,7 +215,7 @@ hr {
 .products-title {
   font-size: 2.4em;
   font-weight: 400;
-  color: var(--gray);
+  color: white;
 }
 
 .product-box {
@@ -313,6 +357,7 @@ hr {
 .product-detail-info {
   border-right: 1px solid var(--light-gray);
   padding: 15px;
+  height: 700px;
   /* height: 100%; */
 }
 
@@ -324,6 +369,13 @@ hr {
 .product-detail-description {
   padding: 15px 15px 15px 40px;
   font-size: 1.8em;
+  line-height: 1.5;
+}
+
+.product-edit{
+  color: wheat;
+  padding: 15px 15px 15px 40px;
+  font-size: 1.2em;
   line-height: 1.5;
 }
 
@@ -341,9 +393,7 @@ hr {
   color: var(--green);
 }
 
-.small span {
-  text-decoration: line-through;
-}
+
 
 .actions-list {
   margin-bottom: 50px;
@@ -396,32 +446,7 @@ hr {
 .action-button.delete {
   background-color: rgb(248, 69, 37);
 }
-.comments {
-  padding: 30px 15px 15px 0;
-}
-.comments article{
-  margin-bottom: 7.5px;
-  padding-bottom: 7.5px;
-  border-bottom: 1px solid #dcdcdc;
-  display: flex;
-  justify-content: space-between;
-}
-.comments img{
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.comments .data{
-  width: 85%;
-  
-}
-.comments p{
-  font-size: 1.5em;
-  margin-top: 0;
-}
-.comments .user{
-  font-size: 1.7em;
-}
+
 
 /*====== Formularios ======*/
 .form-label {
@@ -430,7 +455,7 @@ hr {
   margin: 10px 0;
 }
 
-.form-input {
+.formInput {
   display: block;
   width: 100%;
   height: 45px;
@@ -467,6 +492,11 @@ textarea.form-input {
 .main-title{
   font-size: 25px;
   margin-bottom: 10px;
+  color: white;
+}
+
+.perfil_info{
+  color:white;
 }
 
 .btn{
