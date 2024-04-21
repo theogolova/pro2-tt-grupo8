@@ -78,19 +78,39 @@
 	</header>
 	<!-- /Header -->
 
-	<!-- Novedades -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Registrate</h2>
-			</div>
-			<!-- Show the "ultimos" products -->
-			<h2 class="col-12"> <i>///////////////////////////////////////// <br> Acá va el formulario de registro. <br>
-			Debe cumplir con los puntos de la consigna y ser coherente con la tabla de la base de datos <br>
-			Eliminen estás líneas y coloquen el formulario. <br>
-			Recuerden todo lo que necesita tanto la etiqueta form como los campos input para operar correctamtente</i> <br>
-			////////////////
-			</h2>
+		<!-- Novedades -->
+		<div class="container products-wrapper">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="products-title">Registrate</h2>
+				</div>
+				<!-- Show the "ultimos" products -->
+				<h2 class="col-12"> <form action="/perfil" method="GET">
+					<div class="formGroup">
+					  <label for="email">Email:</label>
+					  <input type="email" id="email" name="email" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="usuario">Usuario:</label>
+					  <input type="text" id="usuario" name="usuario" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="contraseña">Contraseña:</label>
+					  <input type="password" id="contraseña" name="contraseña" class="formInput" required>
+					</div>
+					<div class="form-group">
+					  <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+					  <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="documento">Nro de Documento:</label>
+					  <input type="number" id="documento" name="nroDocumento" class="formInput" required>
+					</div>
+					<button type="submit" class="enviar">Registrarse</button>
+				  </form>
+				  
+				</h2>
+	
 
 
 	<!-- footer -->
