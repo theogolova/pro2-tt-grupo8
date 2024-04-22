@@ -25,7 +25,7 @@ const indexController = {
          });
     },
     search: function(req,res, next){
-        res.render("search-results", {title:"Search results", productos: zapatillas.productos})
+        res.render("searchResults", {title:"Search results", productos: zapatillas.productos})
          }
 }
 

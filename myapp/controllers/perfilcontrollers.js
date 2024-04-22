@@ -27,7 +27,7 @@ const perfilContoller = {
         });
     },
     edit: function(req, res, next) {
-        res.render("profile-edit", {title: "Profile Edit", usuario: zapatillas.usuario});
+        res.render("profileEdit", {title: "Profile Edit", usuario: zapatillas.usuario});
     },
     login: function(req, res, next){
         res.render("login", {title: "Login"});

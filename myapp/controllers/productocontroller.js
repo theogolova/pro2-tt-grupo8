@@ -6,7 +6,7 @@ const productContoller ={
         res.render("product", {title: "Product detail", productos: zapatillas.productos})
     },
     cargarProducto: function (req, res) {
-        res.render('product-add', { usuario: zapatillas.usuario });
+        res.render('productAdd', { usuario: zapatillas.usuario });
     }
 }
 
