@@ -111,9 +111,11 @@ hr {
 .logo{
  margin-top: 19px;
 }
-.main-header_home-link,
-.main-header_credit-link {
+.main-header_home-link {
   display: block;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
 }
 
 .main-header_credit-link {
