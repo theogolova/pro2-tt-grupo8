@@ -1,5 +1,5 @@
 /*====== Fonts ======*/
-<link href= "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Montserrat:wght@400;700&display=swap');
 
 .comentarios {
   padding: 30px 15px 15px 0;
