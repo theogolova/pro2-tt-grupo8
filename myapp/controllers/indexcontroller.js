@@ -24,7 +24,7 @@ const indexController = {
             id: id
          });
     },
-    search: function(req,res, next){
+    search: function(req, res, next){
         res.render("searchResults", {title:"Search results", productos: zapatillas.productos})
          }
 }

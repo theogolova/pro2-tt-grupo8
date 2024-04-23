@@ -1,6 +1,5 @@
 /*====== Fonts ======*/
-<link href= "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Montserrat:wght@400;700&display=swap');
 .comentarios {
   padding: 30px 15px 15px 0;
 
@@ -111,11 +110,9 @@ hr {
 .logo{
  margin-top: 19px;
 }
-.main-header_home-link {
+.main-header_home-link,
+.main-header_credit-link {
   display: block;
-  display: inline-block;
-  width: 100px;
-  height: 50px;
 }
 
 .main-header_credit-link {
