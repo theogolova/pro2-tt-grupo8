@@ -1,9 +1,20 @@
-const zapatillas = require('../db/data')
-const zapas = require('../db/data')
- 
+const db = require("../database/models")
+
 const indexController = {
     index: function (req, res) {
-        let nombreZapa = []
+
+        db.Product.findAll()
+        .then(function (result) {
+
+            return res.send(result)
+    
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+        /*let nombreZapa = []
         let descripcionZapa = []
         let comentarios = []
         let imagenes = []
@@ -22,11 +33,11 @@ const indexController = {
             comentarios:comentarios,
             imagen: imagenes,
             id: id
-         });
+         });*/
     },
     search: function(req, res, next){
         res.render("searchResults", {title:"Search results", productos: zapatillas.productos})
          }
 }
 
-module.exports = indexController
+module.exports = indexController;

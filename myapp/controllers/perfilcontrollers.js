@@ -32,9 +32,30 @@ const perfilContoller = {
     login: function(req, res, next){
         res.render("login", {title: "Login"});
     },
+    loginUser: (req, res) => {
+        let form = req.body;
+
+        let filtro = {
+            where: [{email: form.email}]
+        };
+
+        db.user.findOne(filtro)
+        .then((result) => {
+            return res.send(result);
+
+        }).catch((err) => {
+            return console.log(err);
+        });
+    },
+
     register: function(req, res, next){
         res.render("register", {title:"Register"});
-    }
+    },
+    
+    logout: (req,res) => {
+        req.session.destroy();
+        return res.redirect("/")
+    },
 }; 
 
 module.exports = perfilContoller;
