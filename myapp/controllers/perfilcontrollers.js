@@ -1,6 +1,7 @@
 const zapatillas = require('../db/data')
 const zapas = require("../db/data")
 const usuario = zapatillas.usuario;
+const bcrypt = require("bcryptjs")
 
 const perfilContoller = {
     profile: function (req, res, next) {
@@ -42,7 +43,12 @@ const perfilContoller = {
         db.user.findOne(filtro)
             .then((result) => {
                 if (result != null) {
-                    req.session.user = result;
+                    /* return res.send({contrasenia: form.password, hasheada: result.password}) */
+                    let check = bvrypt.compareSync(form.password, result.password);
+
+                    if (check) {
+                     req.session.user = result;
+                    
 
                     if (form.rememberme !== undefined) {
                     res.cookie("userId", result.id, { maxAge: 1000 * 60 * 35 });
@@ -51,8 +57,7 @@ const perfilContoller = {
                 return res.redirect("/index");
             } else {
                 return res.send("No hay emails parecidos a : " + form.email);
-            }
-
+            } }
             
         }).catch((err) => {
                 console.log(err);
@@ -68,6 +73,16 @@ const perfilContoller = {
         req.session.destroy();
         return res.redirect("/")
     },
+
+    store: (req,res) => {
+        let form = req.body;
+
+        let usuario = {
+            name: form.name,
+            email: form.email,
+            password: bycrpt.hashSync(form.password, 10),
+        }
+    }
 }; 
 
 module.exports = perfilContoller;
