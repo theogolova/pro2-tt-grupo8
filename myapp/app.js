@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session")
+const db = require("./database/models");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -32,6 +33,36 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+/* pasar info de sess ----> locals */
+app.use(function(req,res,next){
+  if (req.session.user != undefined) {
+    res.locals.user = req.session.user;
+  }
+  return next()
+});
+
+/* configuracion de coockies */
+app.use(function(req,res,next){
+    if (req.coockies.userId != undefined && req.session.user == undefined) {
+      let id = req.coockies.userId; 
+
+      db.user.findByPk(id)
+        .then(function (results) {
+
+          req.session.user = result;
+          res.locals.user = result;
+
+          return next();
+      }).catch(function (err) {
+        return console.log(err);
+        
+      });
+
+    } else {
+      return next()
+    }
+});
 
 app.use('/', indexRouter);
 app.use('/cargarproductos', cargarProducto);

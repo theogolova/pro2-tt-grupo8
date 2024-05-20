@@ -34,19 +34,31 @@ const perfilContoller = {
     },
     loginUser: (req, res) => {
         let form = req.body;
-
+    
         let filtro = {
-            where: [{email: form.email}]
+            where: { email: form.email }
         };
-
+    
         db.user.findOne(filtro)
-        .then((result) => {
-            return res.send(result);
+            .then((result) => {
+                if (result != null) {
+                    req.session.user = result;
 
+                    if (form.rememberme !== undefined) {
+                    res.cookie("userId", result.id, { maxAge: 1000 * 60 * 35 });
+                }
+    
+                return res.redirect("/index");
+            } else {
+                return res.send("No hay emails parecidos a : " + form.email);
+            }
+
+            
         }).catch((err) => {
-            return console.log(err);
+                console.log(err);
         });
     },
+    
 
     register: function(req, res, next){
         res.render("register", {title:"Register"});
