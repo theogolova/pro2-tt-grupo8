@@ -5,6 +5,7 @@
   padding: 30px 15px 15px 0;
 
 }
+
 .comentarios article{
   margin-bottom: 7.5px;
   padding-bottom: 7.5px;
@@ -228,6 +229,10 @@ hr {
 
 .product-box a {
   display: block;
+}
+
+a{
+  text-decoration: none;
 }
 
 .product-box_image {

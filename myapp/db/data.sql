@@ -3,7 +3,7 @@ USE databaseproyecto;
 
 CREATE TABLE Usuarios (
 /* Nombrecolumna   Tipodato     Restricciones */
-Id INT  UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+Id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 usuarios_id INT,
 email VARCHAR(250) NOT NULL,
 contraseña VARCHAR(250) NOT NULL,
@@ -18,15 +18,30 @@ deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
 
 CREATE TABLE Productos (
 /* Nombrecolumna   Tipodato     Restricciones */ 
-Id INT PRIMARY KEY AUTO_INCREMENT,
+Id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 productos_id INT,
+clienteId INT UNSIGNED,
 nombre_foto VARCHAR(250) NOT NULL,
 nombre_prod VARCHAR(250) NOT NULL, 
 descripcion_prod VARCHAR(250) NOT NULL,
 createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (clienteId) REFERENCES usuarios(id)
 );
+
+CREATE TABLE comentarios (
+    Id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    productoId INT UNSIGNED,
+    usuarioId INT UNSIGNED,
+    comentario VARCHAR(250) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (productoId) REFERENCES Productos(Id),
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(Id)
+);
+
 
 INSERT INTO Usuarios (usuarios_id, email, contraseña, fecha, dni, foto_perfil)
 VALUES 
@@ -38,34 +53,34 @@ VALUES
 
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES 
-(1, '../images/products/jordan 1.webp', 'Nike Jordan', 'Zapatillas Nike Air Jordan');
+(1, 'https://images.footlocker.com/is/image/EBFL2/N5031100_01?wid=504&hei=504&fmt=png-alpha', 'Nike Jordan', 'Zapatillas Nike Air Jordan');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(2, '../images/products/nike SB.webp', 'Nike SB', 'Zapatillas Nike SB');
+(2, 'https://images.footlocker.com/is/image/EBFL2/N7175630_a1?wid=504&hei=504&fmt=png-alpha', 'Nike SB', 'Zapatillas Nike SB');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(3, '../images/products/nike ari max plus.webp', 'Nike Air Max Plus', 'Zapatillas Nike Air Max Plus');
+(3, 'https://images.footlocker.com/is/image/EBFL2/8480002_a1?wid=504&hei=504&fmt=png-alpha', 'Nike Air Max Plus', 'Zapatillas Nike Air Max Plus');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(4, '../images/products/nike ari max plus black.webp', 'Nike Air Max Plus Black', 'Zapatillas Nike SB');
+(4, 'https://images.footlocker.com/is/image/EBFL2/04133050_a1?wid=504&hei=504&fmt=png-alpha', 'Nike Air Max Plus Black', 'Zapatillas Nike SB');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(5, '../images/products/nike ari max plus blue.webp', 'Nike Air Max Plus Blue', 'Zapatillas Nike SB');
+(5, 'https://images.footlocker.com/is/image/EBFL2/M0032402_a1?wid=504&hei=504&fmt=png-alpha', 'Nike Air Max Plus Blue', 'Zapatillas Nike SB');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(6, '../images/products/adidas samba.webp', 'Adidas Samba', 'Zapatillas Adidas Samba');
+(6, 'https://images.footlocker.com/is/image/EBFL2/IG9030_a1?wid=504&hei=504&fmt=png-alpha', 'Adidas Samba', 'Zapatillas Adidas Samba');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(7, '../images/products/adidas gazelle.webp', 'Adidas Gazelle', 'Zapatillas Adidas Gazelle');
+(7, 'https://images.footlocker.com/is/image/EBFL2/IF7161_a1?wid=504&hei=504&fmt=png-alpha', 'Adidas Gazelle', 'Zapatillas Adidas Gazelle');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(8, '../images/products/on running .webp', 'On Running', 'Zapatillas On Running');
+(8, 'https://images.footlocker.com/is/image/EBFL2/2698494_a1?wid=504&hei=504&fmt=png-alpha', 'On Running', 'Zapatillas On Running');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(9, '../images/products/nike airforce one.webp', 'Nike Airforce 1', 'Zapatillas Nike Airforce One');
+(9, 'https://images.footlocker.com/is/image/EBFL2/W2288111_a1?wid=504&hei=504&fmt=png-alpha', 'Nike Airforce 1', 'Zapatillas Nike Airforce One');
 INSERT INTO productos (productos_id, nombre_foto, nombre_prod, descripcion_prod)
 VALUES
-(10, '../images/products/puma palermo.webp', 'Puma Palermo', 'Zapatillas Puma Palermo');
+(10, 'https://images.footlocker.com/is/image/EBFL2/39764703_a1?wid=504&hei=504&fmt=png-alpha', 'Puma Palermo', 'Zapatillas Puma Palermo');
 
 
 INSERT INTO comentarios (productoId, usuarioId, comentario)
@@ -126,3 +141,4 @@ VALUES
 (10, 1, 'Muy cómodas'),
 (10, 2, 'Buen diseño'),
 (10, 3, 'Excelente calidad');
+

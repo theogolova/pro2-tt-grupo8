@@ -2,11 +2,11 @@ const db = require("../database/models")
 
 const indexController = {
     index: function (req, res) {
-
+       
         db.Product.findAll()
-        .then(function (result) {
+        .then(function (results) {
 
-            return res.send(result)
+            return res.render("index", {productos: results})
     
         })
         .catch(function (error) {
@@ -14,14 +14,14 @@ const indexController = {
         });
 
 
-        /*let nombreZapa = []
+         /*let nombreZapa = []
         let descripcionZapa = []
         let comentarios = []
         let imagenes = []
         let id = []
-        for (let i = 0; i < zapatillas.productos.length; i++) {
-            nombreZapa.push(zapatillas.productos[i].nombre)
-            descripcionZapa.push(zapatillas.productos[i].descripcion)
+        for (let i = 0; i < db.Product.length; i++) {
+            nombreZapa.push(db.Product[i].nombre_prod)
+            descripcionZapa.push(db.Product[i].descripcion)
             comentarios.push(zapatillas.productos[i].comentarios)
             imagenes.push(zapatillas.productos[i].imagen)
             id.push(zapatillas.productos[i].id)
@@ -35,8 +35,14 @@ const indexController = {
             id: id
          });*/
     },
-    search: function(req, res, next){
-        res.render("searchResults", {title:"Search results", productos: zapatillas.productos})
+    search: function(req, res){
+        db.Product.findAll()
+        .then(function(results){
+            return res.render('searchResults', {productos: results});
+        })
+        .catch(function(error){
+            console.log(error);
+        });
          }
 }
 

@@ -10,6 +10,9 @@ module.exports = function(sequelize, dataTypes) {
         productos_id: {
             type: dataTypes.INTEGER
         },
+        clienteId:{
+            type:dataTypes.INTEGER
+        },
         nombre_foto: {
             type: dataTypes.STRING
         },

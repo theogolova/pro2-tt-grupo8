@@ -1,12 +1,38 @@
-const zapatillas = require("../db/data");
-const sneakers = require ("../db/data")
+const db = require("../database/models")
 
 const productContoller ={
     product: function (req, res) {
-        res.render("product", {title: "Product detail", productos: zapatillas.productos})
+        let Id = req.params.id
+
+        let comentarios;
+
+        let productos;
+
+        db.Product.findByPk(Id)
+        .then(function(results){
+            productos = results;
+            return db.Comentario.findAll({
+                limit:5
+            });
+        })
+        .then(function (results) {
+            comentarios = results;
+            return res.render("product", {productos: productos, comentarios: comentarios})
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+
     },
     cargarProducto: function (req, res) {
-        res.render('productAdd', { usuario: zapatillas.usuario });
+        db.Usuario.findOne()
+        .then(function (results) {
+            res.render('productAdd', { usuario: results });
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        
     }
 }
 

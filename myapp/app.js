@@ -7,7 +7,6 @@ const session = require("express-session")
 const db = require("./database/models");
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const productoRouter = require("./routes/producto");
 const perfilRouter = require("./routes/profile");
 const cargarProducto = require("./routes/cargarProducto");
@@ -42,7 +41,7 @@ app.use(function(req,res,next){
   return next()
 });
 
-/* configuracion de coockies */
+/* configuracion de coockies 
 app.use(function(req,res,next){
     if (req.coockies.userId != undefined && req.session.user == undefined) {
       let id = req.coockies.userId; 
@@ -63,6 +62,7 @@ app.use(function(req,res,next){
       return next()
     }
 });
+*/
 
 app.use('/', indexRouter);
 app.use('/cargarproductos', cargarProducto);
