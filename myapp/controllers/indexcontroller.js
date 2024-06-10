@@ -1,12 +1,17 @@
 const db = require("../database/models")
+const op = db.Sequelize.Op;
 
 const indexController = {
     index: function (req, res) {
+
+        let filtrado = {
+            order: [["nombreProd", "ASC"]]
+        }
        
-        db.Product.findAll()
+        db.Product.findAll(filtrado)
         .then(function (results) {
 
-            return res.render("index", {productos: results})
+            return res.render("index", {productos: results, user: req.session.user, userId:req.cookies.userId, usuario: req.session.user})
     
         })
         .catch(function (error) {
@@ -14,31 +19,20 @@ const indexController = {
         });
 
 
-         /*let nombreZapa = []
-        let descripcionZapa = []
-        let comentarios = []
-        let imagenes = []
-        let id = []
-        for (let i = 0; i < db.Product.length; i++) {
-            nombreZapa.push(db.Product[i].nombre_prod)
-            descripcionZapa.push(db.Product[i].descripcion)
-            comentarios.push(zapatillas.productos[i].comentarios)
-            imagenes.push(zapatillas.productos[i].imagen)
-            id.push(zapatillas.productos[i].id)
-
-            
-        }
-        res.render("index", { title: nombreZapa,
-            descripcion: descripcionZapa,
-            comentarios:comentarios,
-            imagen: imagenes,
-            id: id
-         });*/
+        
     },
     search: function(req, res){
-        db.Product.findAll()
+        let busqueda = req.query.search;
+
+        let filtrado = {
+            where: {
+                nombreProd: {[op.like]: "%" + busqueda + "%"}
+            }
+        }
+
+        db.Product.findAll(filtrado)
         .then(function(results){
-            return res.render('searchResults', {productos: results});
+            return res.render('searchResults', {productos: results, usuario: req.session.user});
         })
         .catch(function(error){
             console.log(error);

@@ -4,7 +4,11 @@
 <%- include("./partials/head")%>
 <body>
 	<!-- Header -->
-	<%- include("./partials/header")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
 	
 
@@ -25,13 +29,13 @@
 				<% productos.forEach(function(producto) { %>
 					<div class="col-12 col-sm-6 col-lg-3">
 					<section class="product-box">
-					<a href="/product/<%= producto.Id %>">
+					<a href="/product/id/<%= producto.id %>">
 						<figure class="product-box_image">
-							<img class="imagen_zapas" src="<%= producto.nombre_foto %>" alt="<%= producto.nombre_prod %>">
+							<img class="imagen_zapas" src="<%= producto.imagenProd %>" alt="<%= producto.nombreProd %>">
 						</figure>
 						<article class="product-box_data">
-							<h2><%= producto.nombre_prod %></h2>
-							<p><%= producto.descripcion_prod %></p>
+							<h2><%= producto.nombreProd %></h2>
+							<p><%= producto.descripcion %></p>
 						</article>
 					</a>
 					</section>
@@ -60,13 +64,13 @@
 				<% productos.forEach(function(producto) { %>
 					<div class="col-12 col-sm-6 col-lg-3">
 					<section class="product-box">
-					<a href="/product/<%= producto.Id %>">
+					<a href="/product/id/<%= producto.id %>">
 						<figure class="product-box_image">
-							<img class="imagen_zapas" src="<%= producto.nombre_foto %>" alt="<%= producto.nombre_prod %>">
+							<img class="imagen_zapas" src="<%= producto.imagenProd %>" alt="<%= producto.nombreProd %>">
 						</figure>
 						<article class="product-box_data">
-							<h2><%= producto.nombre_prod %></h2>
-							<p><%= producto.descripcion_prod %></p>
+							<h2><%= producto.nombreProd %></h2>
+							<p><%= producto.descripcion %></p>
 						</article>
 					</a>
 					</section>

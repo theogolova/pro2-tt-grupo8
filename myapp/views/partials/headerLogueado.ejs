@@ -39,17 +39,17 @@
 				</ul>
 	
 				<ul class= "right-navbar">
-					<li><a href="/perfil"  id="<%= usuario.usuario %>">
+					<li><a href="/users/profile"  id="<%= usuario.usuario %>">
 						<%= usuario.usuario %> 
 						<i class="fas fa-user">
 
 						</i></a></li>
 
 					<li>
-						<a href="/">
+						<form action="/users/logout" method="POST">
 							<button class="logout" type="submit">
 								Cerrar sesión <i class="fas fa-sign-in-alt"></i>
-							</a>
+					     </button>
 						</form>
 					</li>
 					<!-- Solo deslogueado <li>

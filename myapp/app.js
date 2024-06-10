@@ -8,9 +8,7 @@ const db = require("./database/models");
 
 const indexRouter = require('./routes/index');
 const productoRouter = require("./routes/producto");
-const perfilRouter = require("./routes/profile");
-const cargarProducto = require("./routes/cargarProducto");
-
+const usersRouter = require("./routes/users");
 
 
 
@@ -41,33 +39,29 @@ app.use(function(req,res,next){
   return next()
 });
 
-/* configuracion de coockies 
-app.use(function(req,res,next){
-    if (req.coockies.userId != undefined && req.session.user == undefined) {
-      let id = req.coockies.userId; 
+app.use(function(req, res, next) {
+  if (req.cookies.userId != undefined && req.session.user == undefined) {
+      let id = req.cookies.userId; 
 
-      db.user.findByPk(id)
-        .then(function (results) {
+      db.Usuario.findByPk(id)
+      .then(function(result) {
 
-          req.session.user = result;
-          res.locals.user = result;
+        req.session.user = result;
+        res.locals.user = result;
 
-          return next();
-      }).catch(function (err) {
-        return console.log(err);
-        
+        return next(); 
+      }).catch(function(err) {
+        return console.log(err); ; 
       });
-
-    } else {
-      return next()
-    }
-});
-*/
+  } 
+  else {
+    return next()
+  }
+});         
 
 app.use('/', indexRouter);
-app.use('/cargarproductos', cargarProducto);
 app.use("/product", productoRouter);
-app.use("/", perfilRouter)
+app.use("/users", usersRouter)
 
 
 // catch 404 and forward to error handler

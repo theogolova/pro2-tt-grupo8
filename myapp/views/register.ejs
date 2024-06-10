@@ -7,7 +7,11 @@
 
 <body>
 	<!-- Header -->
-	<%- include("./partials/header")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
 
 		<!-- Novedades -->
@@ -17,7 +21,7 @@
 					<h2 class="products-title">Registrate</h2>
 				</div>
 				<!-- Show the "ultimos" products -->
-				<h2 class="col-12"> <form action="/perfil" method="GET">
+				<h2 class="col-12"> <form action="/users/register" method="post">
 					<div class="formGroup">
 					  <label for="email">Email:</label>
 					  <input type="email" id="email" name="email" class="formInput" required>

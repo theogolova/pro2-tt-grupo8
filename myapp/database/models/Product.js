@@ -2,24 +2,21 @@ module.exports = function(sequelize, dataTypes) {
     let alias = "Product";
 
     let cols = {
-        Id: {
+        id: {
             autoIncrement: true,
             primaryKey: true,
             type:  dataTypes.INTEGER
         },
-        productos_id: {
+        clienteId: {
             type: dataTypes.INTEGER
         },
-        clienteId:{
-            type:dataTypes.INTEGER
-        },
-        nombre_foto: {
+        imagenProd: {
             type: dataTypes.STRING
         },
-        nombre_prod: {
+        nombreProd: {
             type: dataTypes.STRING
         },
-        descripcion_prod: {
+        descripcion: {
             type: dataTypes.STRING
         },
         createdAt: {
@@ -41,6 +38,19 @@ module.exports = function(sequelize, dataTypes) {
     };
 
     let Product = sequelize.define(alias, cols, config)
+
+    Product.associate = function (models) {
+        
+        Product.belongsTo(models.Usuario,{
+            as: "usuario", 
+            foreignKey: "clienteId"
+        });
+        
+        Product.hasMany(models.Comentario, {
+            as: "comentarios",
+            foreignKey: "productoId"
+        });
+    }
 
     return Product; 
 }

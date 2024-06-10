@@ -6,21 +6,27 @@
 <body>
 	<!-- Header -->
 	
-	<%- include("./partials/header")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
+	<!-- /Header -->
 	<!-- product detail -->
 	<div class="container products-wrapper">
 		<div class="d-flex align-items-center">
-			<h2 class="products-title"> <%= productos.nombre_prod %></h2> 
+			<h2 class="products-title"> <%= productos.nombreProd %></h2> 
 			<p class="product-edit">
 				<a class="product-edit" href="/cargarproductos">Editar producto</a>
 			</p>
 		</div>
 	</div>
+	
 	<div class="product-detail">
 		<div class="row">
 			<article class="col-12 col-lg-8 product-detail-info">
-				<img src="<%= productos.nombre_foto %>" alt="" class="product-detail-img">
-				<p class="product-detail-description"> <%= productos.descripcion_prod %></p>
+				<img src="<%= productos.imagenProd %>" alt="" class="product-detail-img">
+				<p class="product-detail-description"> <%= productos.descripcion %></p>
 			</article>
 			<div class="col-12 col-lg-4">
 				<section class="comentarios">
@@ -29,7 +35,7 @@
 							<img src="" alt="">
 							<div class="info">
 								<p class="usuario" >
-									<strong><a href="/perfil"><%= comentario.usuarioId %></a></strong>
+									<strong><a href="/users/perfil"><%= comentario.userId %></a></strong>
 									<%= comentario.comentario %>
 								</p>
 							</div>

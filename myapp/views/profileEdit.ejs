@@ -5,7 +5,11 @@
 
 <body>
 	<!-- Header -->
-	<%- include("./partials/headerLogueado")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
 >
 
@@ -17,28 +21,27 @@
 			</div>
 			<!-- Show the "ultimos" products -->
 			<div class="col-12"> 
-				<form action="/perfil" method="GET">
-					<div class="formGroup">
-					  <label for="email">Email:</label>
-					  <input type="email" id="email" name="email" class="formInput" required>
-					</div>
-					<div class="formGroup">
-					  <label for="usuario">Usuario:</label>
-					  <input type="text" id="usuario" name="usuario" class="formInput" required>
-					</div>
-					<div class="formGroup">
-					  <label for="contraseña">Contraseña:</label>
-					  <input type="password" id="contraseña" name="contraseña" class="formInput" required>
-					</div>
-					<div class="form-group">
-					  <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
-					  <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="formInput" required>
-					</div>
-					<div class="formGroup">
-					  <label for="documento">Nro de Documento:</label>
-					  <input type="number" id="documento" name="nroDocumento" class="formInput" required>
-					</div>
-					<button type="submit" class="enviar">Editar Perfil</button>
+				<form action="/users/edit" method="POST">
+					<form class="formPropio formRegister" action="/users/edit" method="POST">
+						<label class="form-label" for="email">Email</label><br>
+						<input class="form-input" type="email" id="email" name="email" value="<%= usuario.email %>" placeholder="usuario@ejemplo.com" required><br>
+					   
+						<label class="form-label" for="username">Usuario</label><br>
+						<input class="form-input" type="text" id="username" name="username" value="<%= usuario.usuario %>" placeholder="usuario123" required><br>
+					   
+						<label class="form-label" for="password">Nueva Contraseña</label><br>
+						<input class="form-input" type="text" id="password" name="password" placeholder="contraseña"> <br>
+					   
+						<label class="form-label" for="birthdate">Fecha de nacimiento</label><br>
+						<input class="form-input" type="date" id="birthdate" name="birthdate" value="<%= usuario.fecha %>"  required><br>
+					   
+						<label class="form-label" for="document_number">Número de documento</label><br>
+						<input class="form-input" type="number" id="document_number" name="document_number" value="<%= usuario.dni %>" placeholder="123456789" required><br>
+					   
+						<label class="form-label" for="profile_picture">Foto de perfil</label><br>
+						<input class="form-input file-select" type="text" id="profile_picture" value="<%= usuario.foto_perfil %>" name="profile_picture"><br>
+					   
+						<button type="submit" class="buy-now-button botonRegister">Guardar Cambios</button>
 				  </form>		
 			</div>
 
