@@ -4,9 +4,9 @@ USE databaseproyecto;
 CREATE TABLE usuarios (
 /* Nombrecolumna   Tipodato     Restricciones */
 id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-usuario INT,
 mail VARCHAR(250) NOT NULL,
 contrasenia VARCHAR(250) NOT NULL,
+usuario VARCHAR(250) NOT NULL,
 fechaNacimiento DATE NOT NULL,
 numeroDocumento INT NOT NULL,
 foto VARCHAR(250) NOT NULL,
@@ -44,11 +44,11 @@ CREATE TABLE comentarios (
 
 INSERT INTO usuarios (id, mail, contrasenia, usuario, fechaNacimiento, numeroDocumento, foto)
 VALUES 
-(1, 'pepito@udesa.edu.ar', '123', "pepito", '1940-05-07', 46123804, '/images/users/pepito.png'),
-(2, 'messi@gmail.com', '456', "messi", '2010-10-10', 10294852, '/images/users/messi.png'),
-(3, 'julian@udesa.edu.ar', '789', "julian", '2011-11-11', 46223904, '/images/users/julian.png'),
-(4, 'enzo@udesa.edu.ar', '181', "enzof", '1990-01-01', 9987204, '/images/users/enzo.png'),
-(5, 'gallardo@udesa.edu.ar', '912', "gallardo", '2018-09-12', 4612304, '/images/users/gallardo.png');
+(default, 'pepito@udesa.edu.ar', '123', "pepito", '1940-05-07', 46123804, '/images/users/pepito.png'),
+(default, 'messi@gmail.com', '456', "messi", '2010-10-10', 10294852, '/images/users/messi.png'),
+(default, 'julian@udesa.edu.ar', '789', "julian", '2011-11-11', 46223904, '/images/users/julian.png'),
+(default, 'enzo@udesa.edu.ar', '181', "enzof", '1990-01-01', 9987204, '/images/users/enzo.png'),
+(default, 'gallardo@udesa.edu.ar', '912', "gallardo", '2018-09-12', 4612304, '/images/users/gallardo.png');
 
 INSERT INTO productos (id, clienteId, nombreProd, imagenProd, descripcion)
 VALUES 
@@ -181,11 +181,3 @@ values (default, 10, 1, 'Excelente calidad');
 
 insert into comentarios (id, productoId, clienteId, comentario)
 values (default, 10, 3, 'me fascinaron');
-
-
-
-
-
-
-
-
