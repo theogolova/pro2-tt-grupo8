@@ -13,15 +13,27 @@
 	<% } %>
 	<!-- /Header -->
 	<!-- product detail -->
+	
 	<div class="container products-wrapper">
 		<div class="d-flex align-items-center">
 			<h2 class="products-title"> <%= productos.nombreProd %></h2> 
+			
 			<p class="product-edit">
-				<a class="product-edit" href="/cargarproductos">Editar producto</a>
+				<form action="/product/editProduct" method="post">
+				<input type="hidden" name="id" value="<%= productos.id%>">
+						<button class="btn-special btn-red botonAgregar" type="submit"><a>Editar</a></button>
+			</form>
 			</p>
 		</div>
+		<form action="/product/delete" method="post">
+			<input type="hidden" name="id" value="<%= productos.id%>">
+			<input type="hidden" name="idUsuario" value="<%= productos.usuario.id%>">
+			<button class="btn-special btn-red botonAgregar" type="submit"><a>Eliminar</a></button>
+		</form>
+	
 	</div>
 	
+
 	<div class="product-detail">
 		<div class="row">
 			<article class="col-12 col-lg-8 product-detail-info">
@@ -30,27 +42,41 @@
 			</article>
 			<div class="col-12 col-lg-4">
 				<section class="comentarios">
-					<% comentarios.forEach(function(comentario, index) { %>
+					<% for(let i = 0; i < comentarios.length; i++) { %>
 						<article>
-							<img src="" alt="">
+							<img src=<%= comentarios[i].usuario.foto %> alt="">
 							<div class="info">
 								<p class="usuario" >
-									<strong><a href="/users/perfil"><%= comentario.userId %></a></strong>
-									<%= comentario.comentario %>
+									<strong><a href="/users/perfil/id/<%= comentarios[i].usuario.id %>"><%= comentarios[i].usuario.usuario %></a></strong>
+									<%= comentarios[i].comentario %>
 								</p>
 							</div>
 						</article>
-					<% }); %>
+					<% }; %>
 				</section>
-	
-				<form class="form" action="/product" method="get">
-					<input class="form-input" type="text" value="" placeholder="Agregar comentario">
+				
+				<% if (locals.user != undefined) { %>
+				<form class="form" action="/product/id/<%= productos.id %>" method="post">
+					<input name="comentario" class="form-input" type="text" value="" placeholder="Agregar comentario">
 					<button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
 				</form>
+				<% if (locals.errors && locals.errors.comentario) { %>
+					<p class="feedback"><%= locals.errors.comentario.msg %></p><br>
+				<% } %>
+				<% } else { %>
+					<div class="comentarioDeslogueado">
+						<a href="/users/login">Debes iniciar sesión para agregar un comentario.</a>
+					</div>
+				<% } %>
 				<hr>
+				<%if (!condition){ %>
+					<p class="user">Producto cargado por <a class="hoverUser" href="/users/profile/id/<%= productos.usuario.id%>">@<%= productos.usuario.usuario%></a></p>
+				<%}%>
 			</div>
+			
 		</div>
 	</div>
+	
 	
 	<!-- /product detail -->
 	<!-- footer -->

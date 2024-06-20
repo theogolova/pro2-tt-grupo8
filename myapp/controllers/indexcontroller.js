@@ -5,7 +5,11 @@ const indexController = {
     index: function (req, res) {
 
         let filtrado = {
-            order: [["nombreProd", "ASC"]]
+            order: [["createdAt", "DESC"]],
+            include: [
+                {association: "comentarios"},
+                {association: "usuario"}
+            ]
         }
        
         db.Product.findAll(filtrado)
@@ -26,8 +30,16 @@ const indexController = {
 
         let filtrado = {
             where: {
-                nombreProd: {[op.like]: "%" + busqueda + "%"}
-            }
+                [op.or]: [
+                {nombreProd: {[op.like]: "%" + busqueda + "%"}},
+                {descripcion: {[op.like]: "%" + busqueda + "%"}}
+                ]
+            },
+            order: [["createdAt", "DESC"]],
+            include: [
+                {association: "comentarios"},
+                {association: "usuario"}
+            ]
         }
 
         db.Product.findAll(filtrado)

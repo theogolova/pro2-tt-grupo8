@@ -296,6 +296,19 @@ a{
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+
 .product-box:hover p {
   height: 36px;
   margin-top: 15px;
