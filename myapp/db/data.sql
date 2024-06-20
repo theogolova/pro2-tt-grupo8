@@ -17,16 +17,15 @@ deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
 
 
 CREATE TABLE productos (
-/* Nombrecolumna   Tipodato     Restricciones */ 
-id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-clienteId INT UNSIGNED,
-imagenProd VARCHAR(250) NOT NULL,
-nombreProd VARCHAR(250) NOT NULL, 
-descripcion VARCHAR(250) NOT NULL,
-createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (clienteId) REFERENCES usuarios(id)
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    clienteId INT UNSIGNED,
+    imagenProd VARCHAR(250) NOT NULL,
+    nombreProd VARCHAR(250) NOT NULL,
+    descripcion VARCHAR(250) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (clienteId) REFERENCES usuarios(id)
 );
 
 CREATE TABLE comentarios (
@@ -38,8 +37,9 @@ CREATE TABLE comentarios (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deletedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (clienteId) REFERENCES usuarios(id),
-    FOREIGN KEY (productoId) REFERENCES productos(id)
+    FOREIGN KEY (productoId) REFERENCES productos(id) ON DELETE CASCADE
 );
+
 
 
 INSERT INTO usuarios (id, mail, contrasenia, usuario, fechaNacimiento, numeroDocumento, foto)
@@ -181,3 +181,4 @@ values (default, 10, 1, 'Excelente calidad');
 
 insert into comentarios (id, productoId, clienteId, comentario)
 values (default, 10, 3, 'me fascinaron');
+

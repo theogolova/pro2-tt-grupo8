@@ -26,13 +26,13 @@ const indexController = {
         
     },
     search: function(req, res){
-        let busqueda = req.query.search;
+        let search = req.query.search;
 
         let filtrado = {
             where: {
                 [op.or]: [
-                {nombreProd: {[op.like]: "%" + busqueda + "%"}},
-                {descripcion: {[op.like]: "%" + busqueda + "%"}}
+                {nombreProd: {[op.like]: "%" + search + "%"}},
+                {descripcion: {[op.like]: "%" + search + "%"}}
                 ]
             },
             order: [["createdAt", "DESC"]],

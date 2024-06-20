@@ -126,7 +126,7 @@ const productContoller = {
                     });
                 }
                 else{
-                    return res.redirect("/users/profile/id/" + id);
+                    return res.redirect("/users/profile");
                 }
             }
             else{
@@ -150,16 +150,16 @@ const productContoller = {
             });       
          } 
     },
-    destroy: function(req, res) {
+    delete: function(req, res) {
         let form = req.body;
         
         let filtrado = {
           where: {
             id: form.id
           }
-        }
-
-        if (req.session.user != undefined) {
+        }  
+        
+       if (req.session.user != undefined) {
             let id = req.session.user.id;
             if (form.idUsuario == id) {
                 db.Product.destroy(filtrado)
@@ -176,7 +176,7 @@ const productContoller = {
         }
         else{
             return res.redirect("/users/login");
-        }        
+        }  
     },  
     comment: function(req,res) {
         let form = req.body;
