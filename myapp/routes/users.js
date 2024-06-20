@@ -42,6 +42,7 @@ router.post('/register', validation, perfilController.store);
 router.get('/profile', perfilController.profile);
 
 router.get('/edit', perfilController.edit);
+router.post('/edit', perfilController.update); 
 
 router.post('/logout', perfilController.logout);
 

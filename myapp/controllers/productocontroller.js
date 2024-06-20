@@ -181,7 +181,7 @@ const productContoller = {
     comment: function(req,res) {
         let form = req.body;
         let errors = validationResult(req);
-        // return res.send(form);
+        
         if (errors.isEmpty()) {
             let comentario = {
                 clienteId: req.session.user.id,

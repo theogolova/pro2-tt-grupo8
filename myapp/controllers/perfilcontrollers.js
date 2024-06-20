@@ -40,25 +40,19 @@ const perfilContoller = {
     },
 
     edit: function(req, res, next) {
-        let id
         if (req.session.user != undefined) {
             id = req.session.user.id;
-        }
-        else if (req.cookies.userId != undefined) {
-            id = req.cookies.userId;
-            
-        }
-        else{
-            return res.redirect("/users/login");
-        }
-
-        db.Usuario.findByPk(id)
+            db.Usuario.findByPk(id)
         .then(function (results) {
             return res.render("profileEdit", {title:"Profile Edit", usuario: results});
         })
         .catch(function (err) {
             console.log(err);
         });
+        }
+        else{
+            return res.redirect("/users/login");
+        }
 
     },
 
@@ -148,6 +142,43 @@ const perfilContoller = {
 
 
    
+},
+update: function(req, res) {
+    let errors = validationResult(req);
+    let form = req.body;
+
+    if (errors.isEmpty()) {
+
+        let filtrado = {
+            where: {
+            id: req.session.user.id
+            }
+        } 
+
+        let usuario = {
+            mail: form.mail,
+            usuario: form.usuario,
+            contrasenia: bcrypt.hashSync(form.contrasenia, 10),
+            fechaNacimiento: form.fechaNacimiento,
+            numeroDocumento: form.numeroDocumento,
+            foto: form.foto || "/images/users/default.png"
+        }
+
+        db.Usuario.update(usuario, filtrado)
+        .then((result) => {
+            return res.redirect("/users/login")
+        })
+        .catch((err) => {
+            return console.log(err);
+        });       
+    } 
+        
+    
+    else {
+       
+        return res.render('profileEdit', {title: "Profile Edit", errors: errors.mapped(), old: req.body }); 
+    }
+    
 }
 };
 
