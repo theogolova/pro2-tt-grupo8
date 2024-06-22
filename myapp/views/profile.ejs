@@ -21,17 +21,19 @@
 			<div class="data-container col-6">
 				<div class="d-flex align-items-center ">
 					<h1 class="main-title"> <%= usuario.usuario %>
+						
 						<a href="/users/edit">
 							<i class="fas fa-cog"></i>
 						</a>
+						
 					</h1>
 					<a class="btn mt-3 ml-4" href="">SEGUIR</a>
 				</div>
 				<div>
 					<ul class="perfil_info">
-						<li>Email: <%= usuario.email %></li>
+						<li>Email: <%= usuario.mail %></li>
+						<li><%= productos.length %> productos</li>
 						<li>200 seguidores</li>
-						<li>300 comentarios</li>
 					</ul>
 				</div>
 			</div>
@@ -39,13 +41,7 @@
 	</section>
 	<!-- /Datos del usuario -->
 
-	<!-- Mis productos -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
-			</div>
-			<!-- Show the "últimos" products -->
+	
 			
 			
 	<!-- /Mis productos -->

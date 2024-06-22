@@ -5,17 +5,17 @@ const { body } = require('express-validator');
 
 let validacion = [
     body('nombreProd')
-        .notEmpty().withMessage('El campo Nombre del Producto es obligatorio.'),
+        .notEmpty().withMessage('El producto debe tener un nombre'),
     body('descripcion')
-        .notEmpty().withMessage('El campo Descripción es obligatorio.'),
+        .notEmpty().withMessage('Debes agregar una descripción'),
     body('imagenProd')
-        .notEmpty().withMessage('El campo Imagen es obligatorio.').bail()
-        .isURL().withMessage('El campo Imagen debe ser una URL válida.')
+        .notEmpty().withMessage('Debes agregar una imagen').bail()
+        .isURL().withMessage('La URL de la imagen no es valida')
 ]
 let validacionComentario = [
     body('comentario')
-        .notEmpty().withMessage('Este campo no puede estar vacio.').bail()
-        .isLength({min: 4}).withMessage("Debes usar al menos 3 caracteres")
+        .notEmpty().withMessage('Este campo no puede estar vacio').bail()
+        .isLength({min: 4}).withMessage("El comentario tiene que tener 4 caracteres como minimo")
 ]
 
 

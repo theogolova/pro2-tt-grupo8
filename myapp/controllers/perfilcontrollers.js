@@ -2,43 +2,35 @@ const db = require('../database/models');
 const op = db.Sequelize.Op;
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
-
+const { update } = require('./productocontroller');
 
 const perfilContoller = {
-    profile: function (req, res, next) {
-        let usuario;
-        let productos;
-        let id
+    profile: function(req, res, next) {
+        let id = req.params.id;
 
-        if (req.session.user != undefined) {
-            id = req.session.user.id;
+        let criterio = {
+            include: [
+                {association: "productos"},
+                {association: "comentarios"}
+            ],
+            order: [[{model: db.Product, as: 'productos'}, 'createdAt', 'DESC']]
         }
-        else if(req.cookies.userId != undefined) {
-            id = req.cookies.userId;
-        }
-        else{
-            return res.redirect("/users/login");
-        }
-        db.Usuario.findByPk(id)
-        .then(function (results) {
-            usuario = results;
-            
-            let filtro = {
-                where: [
-                    {clienteId: id}
-                ]
-            };
-            return db.Product.findAll(filtro);
-        })
-        .then(function (results) {
-            productos = results;
-            return res.render("profile", {title: "Profile", usuario: usuario, productos: productos});
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    
+        db.Usuario.findByPk(id, criterio)
+            .then(function(results){
+
+                let condition = false;
+
+                if (req.session.user != undefined && req.session.user.id == results.id) {
+                    condition = true;
+                }
+
+                return res.render('profile', {title: `@${results.usuario}`, usuario: results, productos: results.productos, comentarios: results.comentarios.length, condition: condition});
+            })
+            .catch(function(error){
+                console.log(error);
+            });
     },
-
     edit: function(req, res, next) {
         if (req.session.user != undefined) {
             id = req.session.user.id;
@@ -58,7 +50,7 @@ const perfilContoller = {
 
     login: function(req, res, next){
         if (req.session.user != undefined) {
-            return res.redirect("/")
+            return res.redirect("/users/profile/id/" + req.session.user.id)
         } else {
             return res.render("login", {title: "Login"})
         }
@@ -66,35 +58,41 @@ const perfilContoller = {
 
     loginUser: (req, res, next) => {
         let form = req.body;
+        let errors = validationResult(req)
 
+        
        
-        let filtro = {
-            where: [
-            { mail: form.email }
-            ]
-        };
+        if (errors.isEmpty()) {
+            
+            let filtro = {
+                where: [
+                {mail: form.email}
+                ]
+            }
     
         db.Usuario.findOne(filtro)
             .then((result) => {
                 if (result != null) {
-
-
-                    req.session.user = result;
-
-                    if (form.remember != undefined) {
-                        res.cookie("userId", result.id, {maxAge: 1000 * 60 * 15})
-                    }
-                    return res.redirect("/")
-                } else{
-                    return res.send("no hay email parecio a ese");
-
-                }
-            }).catch((err) =>{
-                return console.log(err);
-            })
                     
-    },
+                    req.session.user = result;
+                    if (form.remember != undefined) {
+                        res.cookie("userId", result.id, {maxAge: 1000 * 60 * 35})
+                    }
+                    return res.redirect("/users/profile/id/" + result.id);
+                } 
+                else {
+                    return res.redirect("/users/login");
+                }
     
+            })
+            .catch((err) => {
+                return console.log(err);
+            });
+        }
+        else{
+            res.render('login', {title: "Login", errors: errors.mapped(),  old: req.body, user: req.session.user});
+        }
+    },
 
     register: function(req, res, next){
         if (req.session.user != undefined) {

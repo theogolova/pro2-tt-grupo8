@@ -24,10 +24,18 @@
 			<div class="col-12"> 
 				<form action="/users/login" method="POST" class="loginForm">
 					<label class="form-label" for="email">Mail</label><br>
-				<input class="form-input" form-input type="email" id="email" name="email" required><br>
+					<input class="form-input" form-input type="email" id="email" name="email" value="<%= locals.old !== undefined && old.email ? old.email : "" %>"><br>
+					<% if (locals.errors && errors.email) { %>
+						<p class="feedback"><%= errors.email.msg %></p>
+					<% } %>
+	
 			 
 				<label class="form-label" for="password">Contraseña</label><br>
-				<input class="form-input" type="password" id="password" name="password" required><br>
+				<input class="form-input" type="password" id="password" name="password" value="<%= locals.old !== undefined && old.password ? old.password : "" %>"><br>
+				<% if (locals.errors && errors.password) { %>
+					<p class="feedback"><%= errors.password.msg %></p>
+				<% } %>
+
 			 
 				<div class="recordarme">
 					<input class="botonRecordar" type="checkbox" id="remember" name="remember">

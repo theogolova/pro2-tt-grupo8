@@ -1,5 +1,5 @@
 const db = require("../database/models")
-const Op = db.Sequelize.Op;
+const op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 
 const productContoller = {
@@ -25,12 +25,6 @@ const productContoller = {
                 condition = true;
             }
             return res.render("product", {productos: results, comentarios: results.comentarios, condition: condition})
-           /* return res.render('product', {
-                title: "Product",
-                usuario: req.session.user || req.cookies.userId,
-                productos: results,
-                comentarios: results.comentarios
-           });*/ 
         })
         .catch(function (error) {
             console.log(error);
@@ -45,24 +39,6 @@ const productContoller = {
             return res.redirect("/users/login")
         }
         
-        /*if (req.session.user != undefined) {
-            id = req.session.user.id;
-        } else if (req.cookies.userId != undefined) {
-            id = req.cookies.userId;
-        } else {
-            return res.redirect("/users/login");
-        }
-
-        db.Usuario.findByPk(id)
-            .then(function(results){
-                return res.render('productAdd', {
-                    title: "Add Product",
-                    usuario: results
-                });
-            })
-            .catch(function(error){
-                console.log(error);
-            }); */
     },
 
     store: function(req, res) {
@@ -79,12 +55,6 @@ const productContoller = {
         else{
             return res.render("productAdd", {errors: errors.mapped(), old:req.body});
         }
-        /*db.Producto.create(form)
-        .then((result) => {
-            return res.redirect("/product/id/" + result.id);
-        }).catch((err) => {
-            return console.log(err);
-        }); */
     },
     
     formUpdate: function(req, res) {
