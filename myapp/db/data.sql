@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS databaseproyecto;
 USE databaseproyecto;
 
 CREATE TABLE usuarios (
-/* Nombrecolumna   Tipodato     Restricciones */
+
 id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 mail VARCHAR(250) NOT NULL,
 contrasenia VARCHAR(250) NOT NULL,
@@ -181,4 +181,3 @@ values (default, 10, 1, 'Excelente calidad');
 
 insert into comentarios (id, productoId, clienteId, comentario)
 values (default, 10, 3, 'me fascinaron');
-

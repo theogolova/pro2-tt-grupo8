@@ -20,7 +20,7 @@
                 <p class="product-edit">
                     <form action="/product/editProduct" method="post">
                         <input type="hidden" name="id" value="<%= productos.id %>">
-                        <button class="btn-special btn-red botonAgregar" type="submit">Editar</button>
+                        <button class="btn-special btn-red botonAgregar" type="submit">Editar producto</button>
                     </form>
                 </p>
             <% } %>
@@ -47,7 +47,7 @@
                             <img src="<%= comentarios[i].usuario.foto %>" alt="">
                             <div class="info">
                                 <p class="usuario">
-                                    <strong> <a href="/users/profile/id/<%= comentarios[i].usuario.id %>"><%= comentarios[i].usuario.usuario %></a></strong>
+                                    <strong> <a class="edicionNombre" href="/users/profile/id/<%= comentarios[i].usuario.id %>"><%= comentarios[i].usuario.usuario %></a></strong>
                                     <%= comentarios[i].comentario %>
                                 </p>
                             </div>

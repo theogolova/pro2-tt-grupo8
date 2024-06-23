@@ -3,6 +3,7 @@ const op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 
 const productContoller = {
+
     product: function (req, res) {
 
         let id = req.params.id;
@@ -11,7 +12,7 @@ const productContoller = {
             include: [
                 {association: "usuario"},
                 {association: "comentarios",
-                    include: [{association: "usuario"}]
+                include: [{association: "usuario"}]
                 }
             ],
             order: [[{model: db.Comentario, as: "comentarios"}, "createdAt", "DESC"]]
@@ -44,7 +45,9 @@ const productContoller = {
     store: function(req, res) {
         let form = req.body;
         let errors = validationResult(req);
+
         if(errors.isEmpty()) {
+            
             db.Product.create(form)
             .then((result) => {
                 return res.redirect("/product/id/" + result.id)

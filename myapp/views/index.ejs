@@ -22,7 +22,7 @@
 	<div class="container products-wrapper">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
+				<h2 class="products-title"></h2>
 			</div>
 			<!-- Show the "últimos" products -->
 			<% if (productos && productos.length > 0) { %>
@@ -45,43 +45,8 @@
 				<p>No products available.</p>
 			<% } %>
 			
-	
-	
-
-
-
-
-
 	<!-- /Novedades -->
-	<!-- Más comentados -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
-			</div>
-			<!-- Show the "últimos" products -->
-			<% if (productos && productos.length > 0) { %>
-				<% productos.forEach(function(producto) { %>
-					<div class="col-12 col-sm-6 col-lg-3">
-					<section class="product-box">
-					<a href="/product/id/<%= producto.id %>">
-						<figure class="product-box_image">
-							<img class="imagen_zapas" src="<%= producto.imagenProd %>" alt="<%= producto.nombreProd %>">
-						</figure>
-						<article class="product-box_data">
-							<h2><%= producto.nombreProd %></h2>
-							<p><%= producto.descripcion %></p>
-						</article>
-					</a>
-					</section>
-					</div>
-				<% }) %>
-			<% } else { %>
-				<p>No products available.</p>
-			<% } %>
-	<!-- /Más comentados -->
-
-
+	
 	<!-- footer -->
 	<%- include("./partials/footer")%>
 	<!-- /footer -->

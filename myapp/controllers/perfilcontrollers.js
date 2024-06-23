@@ -6,33 +6,39 @@ const { update } = require('./productocontroller');
 
 const perfilContoller = {
     profile: function(req, res, next) {
+
         let id = req.params.id;
 
-        let criterio = {
+        let regla = {
             include: [
                 {association: "productos"},
                 {association: "comentarios"}
             ],
-            order: [[{model: db.Product, as: 'productos'}, 'createdAt', 'DESC']]
+            order: [
+                [{model: db.Product, as: 'productos'}, 'createdAt', 'DESC']
+            ]
         }
     
-        db.Usuario.findByPk(id, criterio)
+        db.Usuario.findByPk(id, regla)
+
             .then(function(results){
 
-                let condition = false;
+                let condicion = false;
 
                 if (req.session.user != undefined && req.session.user.id == results.id) {
-                    condition = true;
+                    condicion = true;
                 }
 
-                return res.render('profile', {title: `@${results.usuario}`, usuario: results, productos: results.productos, comentarios: results.comentarios.length, condition: condition});
+                return res.render('profile', {title: `@${results.usuario}`, usuario: results, productos: results.productos, comentarios: results.comentarios.length, condition: condicion});
             })
             .catch(function(error){
                 console.log(error);
             });
     },
     edit: function(req, res, next) {
+
         if (req.session.user != undefined) {
+
             id = req.session.user.id;
             db.Usuario.findByPk(id)
         .then(function (results) {
@@ -49,6 +55,7 @@ const perfilContoller = {
     },
 
     login: function(req, res, next){
+
         if (req.session.user != undefined) {
             return res.redirect("/users/profile/id/" + req.session.user.id)
         } else {
@@ -57,20 +64,19 @@ const perfilContoller = {
     },
 
     loginUser: (req, res, next) => {
+
         let form = req.body;
         let errors = validationResult(req)
 
-        
-       
         if (errors.isEmpty()) {
             
-            let filtro = {
+            let filtrar = {
                 where: [
                 {mail: form.email}
                 ]
             }
     
-        db.Usuario.findOne(filtro)
+        db.Usuario.findOne(filtrar)
             .then((result) => {
                 if (result != null) {
                     
@@ -147,7 +153,7 @@ update: function(req, res) {
 
     if (errors.isEmpty()) {
 
-        let filtrado = {
+        let filtrar = {
             where: {
             id: req.session.user.id
             }
@@ -159,10 +165,10 @@ update: function(req, res) {
             contrasenia: bcrypt.hashSync(form.contrasenia, 10),
             fechaNacimiento: form.fechaNacimiento,
             numeroDocumento: form.numeroDocumento,
-            foto: form.foto || "/images/users/default.png"
+            foto: form.foto 
         }
 
-        db.Usuario.update(usuario, filtrado)
+        db.Usuario.update(usuario, filtrar)
         .then((result) => {
             return res.redirect("/users/login")
         })

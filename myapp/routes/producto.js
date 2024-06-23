@@ -3,7 +3,7 @@ var router = express.Router();
 const productContoller = require('../controllers/productocontroller');
 const { body } = require('express-validator');
 
-let validacion = [
+let validacionAgregar = [
     body('nombreProd')
         .notEmpty().withMessage('El producto debe tener un nombre'),
     body('descripcion')
@@ -14,8 +14,8 @@ let validacion = [
 ]
 let validacionComentario = [
     body('comentario')
-        .notEmpty().withMessage('Este campo no puede estar vacio').bail()
-        .isLength({min: 4}).withMessage("El comentario tiene que tener 4 caracteres como minimo")
+        .notEmpty().withMessage('Debes completarlo').bail()
+        .isLength({min: 5}).withMessage("El comentario tiene que por lo menos tener 5 caracteres como minimo")
 ]
 
 
@@ -25,10 +25,10 @@ router.post('/id/:id',validacionComentario, productContoller.comment);
 
 
 router.get('/add', productContoller.create);
-router.post('/add',validacion, productContoller.store);
+router.post('/add',validacionAgregar, productContoller.store);
 
 router.post('/editProduct', productContoller.formUpdate);
-router.post('/edit',validacion, productContoller.update);
+router.post('/edit',validacionAgregar, productContoller.update);
 
 router.post('/delete', productContoller.delete);
 

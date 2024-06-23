@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 const session = require('express-session')
 
 
-//validaciones
 let validacionLogin = [
     body('email')
         .notEmpty().withMessage('Debes colocar un email').bail()
@@ -19,13 +18,13 @@ let validacionLogin = [
                             return true;
                         }
                         else{
-                            throw new Error ('El email no existe')
+                            throw new Error ('Este email no existe')
                         }
                   })
        }),
 
     body('password')
-        .notEmpty().withMessage('Debes completar la contraseña').bail()
+        .notEmpty().withMessage('Debes de rellenar la contraseña').bail()
         .custom(function(value, {req}){
 
             return db.Usuario.findOne({where: { mail: req.body.email },})
@@ -34,20 +33,20 @@ let validacionLogin = [
 
                             let check = bcrypt.compareSync(req.body.password, result.contrasenia);
                             if(!check){
-                                throw new Error ('Contraseña incorrecta')
+                                throw new Error ('La contraseña no es correcta')
                             }
                         }
                         else{
-                            throw new Error ('Debes registrarte')
+                            throw new Error ('Debes registrarte primero para poder acceder')
                         }
                   })
 
         })
 ]
-let validation = [
+let validacionRegistro = [
     body('email')
-    .notEmpty().withMessage('El campo Mail es obligatorio.').bail()
-    .isEmail().withMessage('Debe ser un email valido').bail()
+    .notEmpty().withMessage('Debes completar el mail').bail()
+    .isEmail().withMessage("El mail debe ser correcto").bail()
     .custom(function(value){
         return db.Usuario.findOne({where: { mail: value }})
               .then(function(user){
@@ -55,29 +54,29 @@ let validation = [
                         return true;
                     }
                     else{
-                        throw new Error ('El email ya existe')
+                        throw new Error ('Este mail es existente')
                     }
               })
     }),
 
     
     body('username')
-    .notEmpty().withMessage('Por favor, introduzca un nombre de usuario'),
+    .notEmpty().withMessage('Colocar un nombre usuario'),
     
     body('password')
-    .notEmpty().withMessage('El campo Contraseña es obligatorio.').bail()
-    .isLength({ min: 4 }).withMessage('La contraseña debe tener más de 4 caracteres')
+    .notEmpty().withMessage('Debes elegir una contraseña').bail()
+    .isLength({ min: 5 }).withMessage('La contraseña por lo menos debe tener 5 caracteres')
 ]
-let validationsEdit = [
+let validacionesEditar = [
     body('mail')
     .notEmpty().withMessage('Debes completar el mail').bail()
     .isEmail().withMessage('El mail no es valido').bail(),
     body('usuario')
-    .notEmpty().withMessage('Debes colocar un nombre de usuario'),
+    .notEmpty().withMessage('Debes elegir un nombre de usuario'),
     
     body('contrasenia')
-    .notEmpty().withMessage('Completar contraseña').bail()
-    .isLength({ min: 4 }).withMessage('La contraseña debe tener más de 4 caracteres')
+    .notEmpty().withMessage("Debes de colocar una contraseña").bail()
+    .isLength({ min: 5 }).withMessage('La contraseña debe por lo menos tener 5 caracteres')
 ]
 
 
@@ -85,12 +84,12 @@ router.get('/login', perfilController.login);
 router.post("/login", validacionLogin, perfilController.loginUser);
 
 router.get('/register', perfilController.register);
-router.post('/register', validation, perfilController.store);
+router.post('/register', validacionRegistro, perfilController.store);
 
 router.get('/profile/id/:id', perfilController.profile);
 
 router.get('/edit', perfilController.edit);
-router.post('/edit', validationsEdit, perfilController.update); 
+router.post('/edit', validacionesEditar, perfilController.update); 
 
 router.post('/logout', perfilController.logout);
 
